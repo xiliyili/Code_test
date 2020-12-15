@@ -6,6 +6,7 @@
 #include <map>
 #include <cctype>
 
+#define MAP_SORT (1)
 using namespace std;
 
 /* 创造结构体将字符数据联系起来 */
@@ -24,6 +25,7 @@ public:
 
 		while (cin >> str)
 		{
+			/* 利用map的字典序排序 */
 			map<char, int> mci;
 			vector<string> vs;
 			string temp = "";
@@ -33,6 +35,7 @@ public:
 			{
 				if (isalpha(str[i]) || isalnum(str[i]) || isspace(str[i]))
 				{
+					/* count函数可统计数目 */
 					mci[str[i]] = count(str.begin(), str.end(), str[i]);
 					maxcount = (maxcount > mci[str[i]]) ? maxcount : mci[str[i]];
 				}
@@ -42,21 +45,24 @@ public:
 			{
 				map<char, int>::iterator it;
 
+				/* map中为字典序，因此不需要后续排序 */
 				for (it = mci.begin(); it != mci.end(); it++)
 				{
 					if (i == it -> second)
 					{
 						temp = temp + it -> first;
 					}
-
+#if !MAP_SORT
 					if (!temp.empty())
 					{
 						sort(temp.begin(), temp.end());
 						vs.push_back(temp);
 						temp = "";
 					}
+#endif
 				}
 			}
+#if !MAP_SORT
 
 			temp = "";
 
@@ -64,8 +70,13 @@ public:
 			{
 				temp += vs[i];
 			}
+#endif
 
 			cout << temp << endl;
+#ifdef MAP_SORT
+
+			temp = "";
+#endif
 		}
 
 		return;
@@ -113,7 +124,8 @@ public:
 				a[st[i]]++;
 				b[st[i]]++;
 			}
-
+			
+			/* 默认升序排列 */
 			sort(a, a + 128);
 			sort(st.begin(), st.end());
 
@@ -145,7 +157,7 @@ public:
 	{
 		char str[1000];
 
-		while (gets(str))
+		//while (gets(str))
 		{
 
 			int count[256] = {0};
@@ -192,7 +204,7 @@ public:
 	{
 		char str[1000] = { 0 };
 
-		while (gets(str))
+		//while (gets(str))
 		{
 			s c[1000] = { 0 };
 			int len = strlen(str);
@@ -240,6 +252,6 @@ int main()
 {
 
 	Solution s;
-	s.cplus_solution();
+	s.cplus2_solution();
 	return 0;
 }
