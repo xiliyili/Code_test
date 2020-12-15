@@ -92,10 +92,14 @@ public:
 
 			for (auto s : str)
 			{
+				/* 记录字符出现次数 */
 				++helper[s];
 			}
-
+			
+			/* 将helper中的所有元素移至vec中 */
 			vector<pair<char, int>> vec(helper.begin(), helper.end());
+			
+			/* lambda表达式 */
 			stable_sort(vec.begin(), vec.end(), [](const pair<char, int> &p1, const pair<char, int> &p2)
 			{
 				return p1.second > p2.second;
